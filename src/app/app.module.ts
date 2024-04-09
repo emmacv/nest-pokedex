@@ -7,6 +7,9 @@ import { PokemonModule } from 'src/pokemon/pokemon.module';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
+      serveStaticOptions: {
+        fallthrough: false,
+      },
     }),
     PokemonModule,
   ],
