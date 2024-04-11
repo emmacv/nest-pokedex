@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
@@ -16,8 +18,8 @@ export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Post()
-  create(@Body() createPokemonDto: CreatePokemonDto) {
-    return this.pokemonService.create(createPokemonDto);
+  async create(@Body() createPokemonDto: CreatePokemonDto) {
+    return await this.pokemonService.create(createPokemonDto);
   }
 
   @Get()
