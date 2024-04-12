@@ -6,8 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  BadRequestException,
-  InternalServerErrorException,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
@@ -40,8 +38,8 @@ export class PokemonController {
     return this.pokemonService.update(slug, updatePokemonDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pokemonService.remove(+id);
+  @Delete(':slug')
+  remove(@Param('slug') slug: string) {
+    return this.pokemonService.remove(slug);
   }
 }

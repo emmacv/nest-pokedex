@@ -20,16 +20,7 @@ export class PokemonService {
     try {
       return await this.pokemonModel.create(createPokemonDto);
     } catch (error) {
-      console.error(error);
-      if (error.code === 11000) {
-        throw new BadRequestException(
-          `Duplicate pokemon ${JSON.stringify(error.keyValue)}: `,
-        );
-      }
-
-      throw new InternalServerErrorException(
-        'Something went wrong, check the logs for more information.',
-      );
+      this.handleException(error, (reason) => `Duplicate pokemon: ${reason}`);
     }
   }
 
@@ -62,18 +53,34 @@ export class PokemonService {
   }
 
   async update(slug: string, updatePokemonDto: UpdatePokemonDto) {
-    const pokemon = await this.findOne(slug);
+    try {
+      const pokemon = await this.findOne(slug);
 
-    const updatedPokemon = await pokemon.updateOne(updatePokemonDto, {
-      new: true,
-    });
+      await pokemon.updateOne(updatePokemonDto, {
+        new: true,
+      });
 
-    console.log(updatedPokemon);
+      const newPokemon = { ...pokemon.toJSON(), ...updatePokemonDto };
 
-    return { ...pokemon.toJSON(), ...updatePokemonDto };
+      return newPokemon;
+    } catch (error) {
+      this.handleException(error, (reason) => `Duplicate pokemon: ${reason}`);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+  async remove(slug: string) {
+    const pokemon = await this.findOne(slug);
+
+    console.log(await pokemon.deleteOne());
+  }
+
+  private handleException(error: any, message: (reason: any) => string) {
+    if (error.code === 11000) {
+      throw new BadRequestException(message(JSON.stringify(error.keyValue)));
+    }
+
+    throw new InternalServerErrorException(
+      'Something went wrong, check the logs for more information.',
+    );
   }
 }
