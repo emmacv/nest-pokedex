@@ -4,6 +4,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PokemonModule } from 'src/pokemon/pokemon.module';
 import { CommonModule } from 'src/common/common.module';
+import { SeedModule } from 'src/seed/seed.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CommonModule } from 'src/common/common.module';
     MongooseModule.forRoot('mongodb://localhost:27017/nest-pokemon'),
     PokemonModule,
     CommonModule,
+    SeedModule,
   ],
 })
 export class AppModule {}
