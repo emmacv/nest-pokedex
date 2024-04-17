@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from './http/http.module';
+import { AxiosAdapter } from './adapters/axios.adapter';
 
 @Module({
-  imports: [HttpModule],
-  exports: [HttpModule],
+  providers: [AxiosAdapter],
+  exports: [AxiosAdapter],
 })
 export class CommonModule {}
