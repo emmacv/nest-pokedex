@@ -12,6 +12,7 @@ import EnvConfig from 'src/config/env';
   imports: [
     ConfigModule.forRoot({
       load: [EnvConfig],
+      isGlobal: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
