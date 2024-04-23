@@ -11,5 +11,11 @@ To start using the project, you need to first install the depencies by running o
 
 Then, you need to boot the database with these command
 ```bash
-  docker-compose up -d
+docker-compose up -d
 ```
+
+To generate the environment corresponding file, run
+```bash
+yarn generate-env
+```
+To generate the env file according to your environment
