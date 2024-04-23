@@ -22,7 +22,9 @@ import validationSchema from 'src/config/validation.schema';
         fallthrough: false,
       },
     }),
-    MongooseModule.forRoot(process.env.MONGO_DB),
+    MongooseModule.forRoot(process.env.MONGO_DB, {
+      dbName: 'pokemon_db',
+    }),
     PokemonModule,
     CommonModule,
     SeedModule,
