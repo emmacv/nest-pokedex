@@ -19,3 +19,15 @@ To generate the environment corresponding file, run
 yarn generate-env
 ```
 To generate the env file according to your environment
+
+## Production build
+
+1. create a `.env.prod` file
+2. fill this file with these values:
+
+```
+MONGO_DB_URI=mongodb://localhost:27017/nest-pokemon
+MONGO_DB=mongodb://mongo-poke:27017/nest-pokemon
+PORT=3000
+A_SECRET_KEY=secret
+```
